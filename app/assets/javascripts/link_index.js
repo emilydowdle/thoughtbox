@@ -1,6 +1,5 @@
 $(document).ready(function() {
   fetchLinks()
-  updateTitle()
 })
 
 function renderLink(link) {
@@ -11,7 +10,7 @@ function renderLink(link) {
     "<span><strong>URL: </strong></span><p contentEditable='true' class='link-url'>" + link.url + "</p>" +
     "<div><p class='link-quality'><strong>Read: </strong>" + link.read + "</p>" +
     readButton(link) +
-    "<button class='edit-link' name='edit-button' class=''>Edit</button>"
+    "<a href='/links/" + link.id + "/edit'><button class='edit-link' name='edit-button' class=''>Edit</button></a>"
   )
 }
 
@@ -31,41 +30,5 @@ function fetchLinks() {
     $.each(data, function(key, val) {
       renderLink(val)
     })
-    // editButton()
   })
-}
-
-function updateTitle() {
-  $('#link-info').delegate('.link-title', 'keyup', function (event) {
-    if(event.keyCode == 13) {
-      event.preventDefault();
-      var $link = $(this).closest('.link')
-      var $updatedTitle = event.currentTarget.textContent
-      var linkParams = {
-        title: $updatedTitle
-      }
-      sendPut($link, linkParams, event)
-    }
-  })
-}
-
-function sendPut(link, data, event) {
-  $.ajax({
-    type: 'PUT',
-    url: "/api/v1/links/" + link.attr('data-id') + "",
-    data: data,
-    success: function(updatedLink) {
-      if (event != null) {
-        $(event.target).blur()
-      }
-      replaceTitle(link, updatedLink.title);
-    },
-    error: function(xhr) {
-      console.log("A title is required for your link.")
-    }
-  })
-}
-
-function replaceTitle(link, title) {
-  $(link).find('.link-title').html(title)
 }
