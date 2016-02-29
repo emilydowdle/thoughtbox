@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thoughtbox</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <% if flash[:success] %>
+    <!-- <div id="nav-bar" class="green lighten-2 alert white-text"> -->
+    <p><%= raw(flash[:success]) %></p>
+    <!-- </div> -->
+  <% else %>
+    <!-- <div id="nav-bar" class="blue lighten-2 alert white-text"> -->
+    <% flash.each do |type, message| %>
+      <p><%= content_tag(:div, message) %></p>
+    <% end %>
+    <!-- </div> -->
+  <% end %>
+
+<%= yield %>
+
+</body>
+</html>
