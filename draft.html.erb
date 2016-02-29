@@ -1,0 +1,36 @@
+<% if current_user %>
+  <%= link_to "Sign Out", logout_path, method: :delete %>
+
+  <h3>New Link</h3>
+
+  <%= form_for(@link) do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <%= f.label :url %>
+    <%= f.text_field :url %>
+    <%= f.submit "Add Link" %>
+  <% end %>
+
+  <h3>Your Links</h3>
+
+  <% if @links %>
+    <% @links.each do |link| %>
+      <h4><strong>Title: </strong><%= link.title %></h4>
+      <p><strong>URL: </strong><%= link.url %></p>
+      <% if link.read? %>
+      <%= link_to "Mark as Unread", link_path(link, link: { read: false }), method: :put %>
+      <% else %>
+      <%= link_to "Mark as Read", link_path(link, link: { read: true }), method: :put %>
+      <% end %>
+      <%= button_to "Edit", edit_link_path(link), method: :get %>
+    <% end %>
+  <% else %>
+    <p>
+      You have no links to display. Add a link using the form above.
+    </p>
+  <% end %>
+
+<% else %>
+  <%= link_to "Sign In", login_path %>
+  <%= link_to "Sign Up", new_user_path %>
+<% end %>

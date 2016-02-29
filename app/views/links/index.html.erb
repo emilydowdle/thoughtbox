@@ -13,24 +13,14 @@
 
   <h3>Your Links</h3>
 
-  <% if @links %>
-    <% @links.each do |link| %>
-      <h4><strong>Title: </strong><%= link.title %></h4>
-      <p><strong>URL: </strong><%= link.url %></p>
-      <% if link.read? %>
-      <%= link_to "Mark as Unread", link_path(link, link: { read: false }), method: :put %>
-      <% else %>
-      <%= link_to "Mark as Read", link_path(link, link: { read: true }), method: :put %>
-      <% end %>
-      <%= button_to "Edit", link_path(link) %>
-    <% end %>
-  <% else %>
-    <p>
-      You have no links to display. Add a link using the form above.
-    </p>
-  <% end %>
+    <div class="filter">
+      <label for="link_filter_title">Search: </label>
+      <%#= text_field :link, :filter_title %>
+    </div>
 
-<% else %>
-  <%= link_to "Sign In", login_path %>
-  <%= link_to "Sign Up", new_user_path %>
+    <div id="link-info" class="clearfix">
+
+    </div>
+
+  </div>
 <% end %>
