@@ -12,8 +12,7 @@ function renderLink(link) {
     "' data-title='" + link.title + "' data-url='" + link.url +
     "'><span class='title-span'><span><strong>Title: </strong></span><h4 contentEditable='true' class='link-title'>" + link.title + "</h4></span>" +
     "<span><strong>URL: </strong></span><p contentEditable='true' class='link-url'>" + link.url + "</p>" +
-    "<div><p class='link-is-read'><strong>Read: </strong>" + link.read + "</p>" +
-    readButton(link) +
+    "<div>" + readButton(link) +
     "<a href='/links/" + link.id + "/edit'><button class='edit-link' name='edit-button' class=''>Edit</button></a>"
   )
 }

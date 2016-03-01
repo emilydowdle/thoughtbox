@@ -2,7 +2,7 @@ class Api::V1::LinksController < ApplicationController
   respond_to :json
 
   def index
-    links = Link.all
+    links = current_user.links.all
     respond_with links
   end
 
@@ -15,7 +15,6 @@ class Api::V1::LinksController < ApplicationController
   private
 
   def link_params
-    # binding.pry
     params.permit(:id, :title, :url, :read)
   end
 end

@@ -20,22 +20,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = current_user
-  end
-
-  def edit
-    @user = current_user
-  end
-
-  def update
-    @user = current_user
-    @user.update(user_params)
-
-    flash.notice = "Profile Updated!"
-    redirect_to dashboard_path
-  end
-
   private
 
   def user_params
