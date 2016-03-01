@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true,
                     uniqueness: true
 
+  validates :password, presence: true 
+
   def password_match(params)
     params[:password] == params[:confirm_password]
   end
