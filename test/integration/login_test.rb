@@ -20,23 +20,47 @@ class LoginTest < ActionDispatch::IntegrationTest
 
   end
 
+  test "visitor can cannot create account with unmatched passwords" do
+    visit root_path
+
+    click_link "Sign Up"
+
+    fill_in "Email", with: "emily@emilydowdle.com"
+    fill_in "Password", with: "password"
+    fill_in "Confirm password", with: "password1"
+    click_button "Create Account"
+
+    assert_equal '/users', current_path
+  end
+
+  test "visitor can cannot create account with missing confirmation password" do
+    visit root_path
+
+    click_link "Sign Up"
+
+    fill_in "Email", with: "emily@emilydowdle.com"
+    fill_in "Password", with: "password"
+    fill_in "Confirm password", with: ""
+    click_button "Create Account"
+
+    assert_equal '/users', current_path
+  end
+
   test "user can login" do
-    skip
-    User.create(username: "Jon",
+    User.create(email: "emily@emilydowdle.com",
                 password: "password")
 
     visit root_path
 
-    click_link "Login"
-    fill_in "Username", with: "Jon"
+    click_link "Sign In"
+    fill_in "Email", with: "emily@emilydowdle.com"
     fill_in "Password", with: "password"
     click_button "Login"
 
     assert_equal root_path, current_path
-    within("#primary-navigation") do
-      refute page.has_content?("Login")
-      assert page.has_content?("Logout")
-    end
+    refute page.has_content?("Sign In")
+    refute page.has_content?("Sign Up")
+    assert page.has_content?("Sign Out")
   end
 
 end
